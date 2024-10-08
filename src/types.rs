@@ -6,12 +6,6 @@ pub struct Item {
     pub weight: f64,
 }
 
-impl Item {
-    fn new(value: f64, weight: f64) -> Item {
-        Item { value, weight }
-    }
-}
-
 pub struct Problem {
     pub size: i32,
     pub capacity: f64,
