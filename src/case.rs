@@ -2,7 +2,7 @@ use crate::types::{Items, Problem};
 
 use rand::Rng;
 
-pub fn case_I(items: &mut Items, mut problem: Problem) -> f64 {
+pub fn case_1(items: &mut Items, mut problem: Problem) -> f64 {
     // weight = random(min_weight, max_weight)
     // value = weight + 5
     let mut rng = rand::thread_rng();
@@ -16,7 +16,7 @@ pub fn case_I(items: &mut Items, mut problem: Problem) -> f64 {
     return problem.capacity / 2.0;
 }
 
-pub fn case_II(items: &mut Items, mut problem: Problem) -> f64 {
+pub fn case_2(items: &mut Items, mut problem: Problem) -> f64 {
     // weight = i%10 + 1
     // value = random(min_value, max_value)
     let mut rng = rand::thread_rng();
@@ -30,7 +30,7 @@ pub fn case_II(items: &mut Items, mut problem: Problem) -> f64 {
     return problem.capacity / 2.0;
 }
 
-pub fn case_III(items: &mut Items, mut problem: Problem) -> f64 {
+pub fn case_3(items: &mut Items, mut problem: Problem) -> f64 {
     // weight = i%10 + 1
     // value = weight + 5
     items.resize(problem.size as usize, Default::default());
