@@ -91,15 +91,15 @@ pub fn update_qubits_with_angle(
     0
 }
 
-pub fn sort_solution(items: &Items, solutions: Vec<Solution>, N: i32) -> Vec<Solution> {
+pub fn sort_solution(items: &Items, solutions: Vec<Solution>, n_neighbors: i32) -> Vec<Solution> {
     let mut sorted_solutions: Vec<Solution> = solutions.clone();
     let mut values: Vec<f64> = Vec::new();
     for solution in &solutions {
         values.push(calculate_values(items, solution));
     }
 
-    for i in 0..N {
-        for j in i..N {
+    for i in 0..n_neighbors {
+        for j in i..n_neighbors {
             if values[i as usize] < values[j as usize] {
                 let temp = values[i as usize];
                 values[i as usize] = values[j as usize];
