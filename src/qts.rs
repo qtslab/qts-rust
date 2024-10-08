@@ -38,7 +38,7 @@ pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solu
 
         print_solution(items, &best_fit);
         // print_qubits(&qubits);
-        record_iter("output.csv", i, calculate_values(items, &best_fit));
+        let _ = record_iter("output.csv", i, calculate_values(items, &best_fit));
         update_qubits(best_solution.clone(), worst_solution.clone(), &mut qubits);
     }
 
