@@ -15,7 +15,7 @@ pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solu
         // println!("Generation {}/{}", i+1, max_gen);
         for j in 0..n_neighbors {
             neighbors[j as usize] = measure(&qubits);
-            adjust_solution(items, &neighbors[j as usize], capacity);
+            adjust_solution(items, &mut neighbors[j as usize], capacity);
             if j == 0 {
                 best_solution = neighbors[j as usize].clone();
                 worst_solution = neighbors[j as usize].clone();
