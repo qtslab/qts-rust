@@ -57,13 +57,7 @@ pub fn update_qubits(best_sol: Solution, worst_sol: Solution, qubits: &mut Qubit
             mod_signal *= -1;
         }
 
-        let new_alpha = qubits[i].alpha * (theta * mod_signal as f64).cos()
-            - qubits[i].beta * (theta * mod_signal as f64).sin();
-        let new_beta = qubits[i].beta * (theta * mod_signal as f64).sin()
-            + qubits[i].alpha * (theta * mod_signal as f64).cos();
-
-        qubits[i].alpha = new_alpha;
-        qubits[i].beta = new_beta;
+        qubits[i].update(theta, mod_signal);
     }
 
     0

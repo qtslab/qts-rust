@@ -15,6 +15,18 @@ impl Default for Qubit {
     }
 }
 
+impl Qubit {
+    pub fn update(&mut self, theta: f64, mod_signal: i32) {
+        let new_alpha = self.alpha * (theta * mod_signal as f64).cos()
+            - self.beta * (theta * mod_signal as f64).sin();
+        let new_beta = self.beta * (theta * mod_signal as f64).sin()
+            + self.alpha * (theta * mod_signal as f64).cos();
+
+        self.alpha = new_alpha;
+        self.beta = new_beta;
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
