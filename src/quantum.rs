@@ -53,7 +53,7 @@ pub fn update_qubits(best_sol: Solution, worst_sol: Solution, qubits: &mut Qubit
     let theta: f64 = 0.01 * std::f64::consts::PI;
     for i in 0..qubits.len() {
         let mut mod_signal: i32 = best_sol[i] as i32 - worst_sol[i] as i32;
-        if qubits[i].alpha * qubits[i].beta < 0.0 {
+        if qubits[i].alpha * qubits[i].beta > 0.0 {
             mod_signal *= -1;
         }
 
@@ -72,7 +72,7 @@ pub fn update_qubits_with_angle(
     let theta: f64 = angle * std::f64::consts::PI;
     for i in 0..qubits.len() {
         let mut mod_signal: i32 = best_sol[i] as i32 - worst_sol[i] as i32;
-        if qubits[i].alpha * qubits[i].beta < 0.0 {
+        if qubits[i].alpha * qubits[i].beta > 0.0 {
             mod_signal *= -1;
         }
 

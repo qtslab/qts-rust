@@ -1,8 +1,10 @@
-use crate::quantum::{adjust_solution, calculate_values, measure, update_qubits};
+use crate::quantum::{
+    adjust_solution, calculate_values, calculate_weights, measure, update_qubits,
+};
 use crate::types::{Items, Qubits, Solution};
 
 use crate::debug::print_solution;
-use crate::record::record_iter;
+use crate::record::Record;
 
 pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solution {
     let mut qubits: Qubits = vec![Default::default(); items.len()];
@@ -11,6 +13,7 @@ pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solu
     let mut neighbors: Vec<Solution> = vec![vec![false; items.len()]; n_neighbors as usize];
     let mut best_solution: Solution = vec![false; items.len()];
     let mut worst_solution: Solution = vec![false; items.len()];
+    let mut record = Record::new("output.csv".to_string());
     for i in 0..max_gen {
         // println!("Generation {}/{}", i+1, max_gen);
         for j in 0..n_neighbors {
@@ -38,9 +41,16 @@ pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solu
         }
 
         // print_qubits(&qubits);
-        let _ = record_iter("output.csv", i, calculate_values(items, &best_fit));
+        record.add_iteration(
+            i,
+            calculate_values(items, &best_solution),
+            calculate_weights(items, &best_solution),
+            best_fit.clone(),
+            qubits.clone(),
+        );
         update_qubits(best_solution.clone(), worst_solution.clone(), &mut qubits);
     }
 
+    let _ = record.write_file();
     best_fit
 }
