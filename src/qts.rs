@@ -3,7 +3,6 @@ use crate::quantum::{
 };
 use crate::types::{Items, Qubits, Solution};
 
-use crate::debug::print_solution;
 use crate::record::Record;
 
 pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solution {
@@ -13,7 +12,7 @@ pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solu
     let mut neighbors: Vec<Solution> = vec![vec![false; items.len()]; n_neighbors as usize];
     let mut best_solution: Solution = vec![false; items.len()];
     let mut worst_solution: Solution = vec![false; items.len()];
-    let mut record = Record::new("output.csv".to_string());
+    // let mut record = Record::new("output.csv".to_string());
     for i in 0..max_gen {
         // println!("Generation {}/{}", i+1, max_gen);
         for j in 0..n_neighbors {
@@ -37,10 +36,9 @@ pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solu
 
         if calculate_values(items, &best_solution) > calculate_values(items, &best_fit) {
             best_fit = best_solution.clone();
-            print_solution(items, &best_fit);
         }
 
-        // print_qubits(&qubits);
+        /*
         record.add_iteration(
             i,
             calculate_values(items, &best_solution),
@@ -48,9 +46,10 @@ pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solu
             best_fit.clone(),
             qubits.clone(),
         );
+        */
         update_qubits(best_solution.clone(), worst_solution.clone(), &mut qubits);
     }
 
-    let _ = record.write_file();
+    // let _ = record.write_file();
     best_fit
 }
