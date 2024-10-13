@@ -12,6 +12,6 @@ fn main() {
     print_items(&items);
 
     let max_gen: i32 = 1000;
-    let n_neighbors: i32 = 100;
+    let n_neighbors: i32 = 10;
     qts(&items, capacity, max_gen, n_neighbors);
 }
