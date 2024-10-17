@@ -1,3 +1,4 @@
+pub mod aeqts;
 pub mod case;
 pub mod config;
 pub mod debug;

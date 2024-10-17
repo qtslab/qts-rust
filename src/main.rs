@@ -1,3 +1,4 @@
+use qts_rust::aeqts::aeqts;
 use qts_rust::case::case_1;
 use qts_rust::config::Config;
 use qts_rust::qts::qts;
@@ -22,6 +23,12 @@ fn main() {
         let handle = thread::spawn(move || {
             let items = items.lock().unwrap();
             qts(
+                &items,
+                capacity,
+                config.algorithm.max_gen,
+                config.algorithm.n_neighbors,
+            );
+            aeqts(
                 &items,
                 capacity,
                 config.algorithm.max_gen,
