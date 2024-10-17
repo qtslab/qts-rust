@@ -1,0 +1,9 @@
+[problem]
+size = 20
+
+[algorithm]
+max_gen = 1000
+n_neighbors = 10
+
+[test]
+count = 100
