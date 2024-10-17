@@ -17,7 +17,7 @@ pub fn aeqts(
     adjust_solution(&items, &mut best_fit, capacity);
     let mut neighbors: Vec<Solution> = vec![vec![false; items.len()]; n_neighbors as usize];
     let mut solutions: Vec<Solution> = vec![vec![false; items.len()]; n_neighbors as usize];
-    // let mut record = Record::new("output.csv".to_string());
+    let mut record = Record::new(format!("csv/ae-qts/{}.csv", test_count));
     for i in 0..max_gen {
         // println!("Generation {}/{}", i+1, max_gen);
         for j in 0..n_neighbors {
@@ -41,15 +41,14 @@ pub fn aeqts(
             best_fit = solutions[0].clone();
         }
 
-        /*
         record.add_iteration(
             i,
-            calculate_values(items, &best_solution),
-            calculate_weights(items, &best_solution),
+            calculate_values(items, &solutions[0]),
+            calculate_weights(items, &solutions[0]),
             best_fit.clone(),
             qubits.clone(),
         );
-        */
+
         for j in 0..solutions.len() / 2 {
             update_qubits_with_angle(
                 solutions[j].clone(),
@@ -60,6 +59,6 @@ pub fn aeqts(
         }
     }
 
-    // let _ = record.write_file();
+    let _ = record.write_file();
     best_fit
 }

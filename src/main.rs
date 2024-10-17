@@ -2,7 +2,7 @@ use qts_rust::aeqts::aeqts;
 use qts_rust::case::case_1;
 use qts_rust::config::Config;
 use qts_rust::qts::qts;
-use qts_rust::types::{Items, Problem};
+use qts_rust::types::Problem;
 use std::sync::{Arc, Mutex};
 use std::thread;
 
