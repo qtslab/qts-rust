@@ -40,7 +40,7 @@ impl Default for Config {
 
 impl Config {
     pub fn get() -> Result<Config, Box<dyn std::error::Error>> {
-        let config_content = fs::read_to_string("config.toml")?;
+        let config_content = fs::read_to_string("config/config.toml")?;
         let config: Config = toml::from_str(&config_content)?;
         Ok(config)
     }
