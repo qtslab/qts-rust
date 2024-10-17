@@ -27,12 +27,14 @@ fn main() {
                 capacity,
                 config.algorithm.max_gen,
                 config.algorithm.n_neighbors,
+                i,
             );
             aeqts(
                 &items,
                 capacity,
                 config.algorithm.max_gen,
                 config.algorithm.n_neighbors,
+                i,
             );
             println!("thread[{}] done", i);
         });

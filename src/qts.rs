@@ -5,7 +5,13 @@ use crate::types::{Items, Qubits, Solution};
 
 use crate::record::Record;
 
-pub fn qts(items: &Items, capacity: f64, max_gen: i32, n_neighbors: i32) -> Solution {
+pub fn qts(
+    items: &Items,
+    capacity: f64,
+    max_gen: i32,
+    n_neighbors: i32,
+    test_count: i32,
+) -> Solution {
     let mut qubits: Qubits = vec![Default::default(); items.len()];
     let mut best_fit: Solution = vec![false; items.len()];
     adjust_solution(&items, &mut best_fit, capacity);

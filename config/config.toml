@@ -2,8 +2,8 @@
 size = 20
 
 [algorithm]
-max_gen = 1000
+max_gen = 100
 n_neighbors = 10
 
 [test]
-count = 100
+count = 1
