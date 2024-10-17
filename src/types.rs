@@ -28,6 +28,12 @@ impl Default for Problem {
     }
 }
 
+impl Problem {
+    pub fn set_size(mut self, size: i32) {
+        self.size = size;
+    }
+}
+
 // define a alias for a vector of qubits(for a qubit register)
 pub type Qubits = Vec<Qubit>;
 // define a alias for a vector of bools(for a solution)
