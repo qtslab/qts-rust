@@ -2,6 +2,7 @@ pub mod aeqts;
 pub mod case;
 pub mod config;
 pub mod debug;
+pub mod opencl;
 pub mod qts;
 pub mod quantum;
 pub mod qubit;

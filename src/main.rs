@@ -1,4 +1,4 @@
-use qts_rust::aeqts::aeqts;
+use qts_rust::aeqts::boosted_aeqts;
 use qts_rust::case::{case_1, case_2, case_3};
 use qts_rust::config::Config;
 use qts_rust::qts::qts;
@@ -58,7 +58,7 @@ fn main() {
         let config = config.clone();
         let handle = thread::spawn(move || {
             let items = items.lock().unwrap();
-            aeqts(
+            boosted_aeqts(
                 &items,
                 config.problem.capacity,
                 config.algorithm.max_gen,
