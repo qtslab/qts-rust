@@ -1,5 +1,6 @@
 [problem]
 size = 20
+case = 1
 
 [algorithm]
 max_gen = 100

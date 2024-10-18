@@ -12,6 +12,7 @@ pub struct Config {
 #[derive(Debug, Deserialize)]
 pub struct Problem {
     pub size: i32,
+    pub case: i32,
 }
 
 #[derive(Debug, Deserialize)]
@@ -28,7 +29,7 @@ pub struct Test {
 impl Default for Config {
     fn default() -> Self {
         Config {
-            problem: Problem { size: 20 },
+            problem: Problem { size: 20, case: 1 },
             algorithm: Algorithm {
                 max_gen: 1000,
                 n_neighbors: 10,
