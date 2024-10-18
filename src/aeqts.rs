@@ -19,7 +19,6 @@ pub fn aeqts(
     let mut solutions: Vec<Solution> = vec![vec![false; items.len()]; n_neighbors as usize];
     let mut record = Record::new(format!("csv/ae-qts/{}.csv", test_count));
     for i in 0..max_gen {
-        // println!("Generation {}/{}", i+1, max_gen);
         for j in 0..n_neighbors {
             neighbors[j as usize] = measure(&qubits);
             adjust_solution(items, &mut neighbors[j as usize], capacity);
@@ -30,29 +29,31 @@ pub fn aeqts(
             }
         }
 
-        // sort solutinos by value
+        // sort solutions by value
         solutions.sort_by(|a, b| {
             calculate_values(items, a)
                 .partial_cmp(&calculate_values(items, b))
                 .unwrap()
         });
 
-        if calculate_values(items, &solutions[0]) > calculate_values(items, &best_fit) {
-            best_fit = solutions[0].clone();
+        if calculate_values(items, &solutions[solutions.len() - 1])
+            > calculate_values(items, &best_fit)
+        {
+            best_fit = solutions[solutions.len() - 1].clone();
         }
 
         record.add_iteration(
             i,
-            calculate_values(items, &solutions[0]),
-            calculate_weights(items, &solutions[0]),
+            calculate_values(items, &solutions[solutions.len() - 1]),
+            calculate_weights(items, &solutions[solutions.len() - 1]),
             best_fit.clone(),
             qubits.clone(),
         );
 
         for j in 0..solutions.len() / 2 {
             update_qubits_with_angle(
-                solutions[j].clone(),
                 solutions[solutions.len() - j - 1].clone(),
+                solutions[j].clone(),
                 &mut qubits,
                 0.01 / (j + 1) as f64,
             );
