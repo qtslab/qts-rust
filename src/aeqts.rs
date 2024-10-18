@@ -44,8 +44,8 @@ pub fn aeqts(
 
         record.add_iteration(
             i,
-            calculate_values(items, &solutions[solutions.len() - 1]),
-            calculate_weights(items, &solutions[solutions.len() - 1]),
+            calculate_values(items, &best_fit),
+            calculate_weights(items, &best_fit),
             best_fit.clone(),
             qubits.clone(),
         );

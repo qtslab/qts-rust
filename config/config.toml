@@ -7,4 +7,4 @@ max_gen = 1000
 n_neighbors = 10
 
 [test]
-count = 1000
+count = 10

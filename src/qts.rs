@@ -46,8 +46,8 @@ pub fn qts(
 
         record.add_iteration(
             i,
-            calculate_values(items, &best_solution),
-            calculate_weights(items, &best_solution),
+            calculate_values(items, &best_fit),
+            calculate_weights(items, &best_fit),
             best_fit.clone(),
             qubits.clone(),
         );
