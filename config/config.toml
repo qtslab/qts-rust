@@ -1,5 +1,5 @@
 [problem]
-size = 100
+size = 1000
 case = 1
 capacity = 0
 max_weight = 10
@@ -8,7 +8,7 @@ min_weight = 1
 min_value = 1
 
 [algorithm]
-max_gen = 1000
+max_gen = 3000
 n_neighbors = 10
 
 [test]
