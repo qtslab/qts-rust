@@ -24,8 +24,9 @@ fn main() {
         }
     };
 
-    let mut handles = vec![];
+    let mut qts_handles = vec![];
 
+    let qts_start_time = std::time::Instant::now();
     for i in 0..config.test.count {
         let items = Arc::clone(&items);
         let handle = thread::spawn(move || {
@@ -37,6 +38,25 @@ fn main() {
                 config.algorithm.n_neighbors,
                 i,
             );
+            println!("QTS thread[{}] done", i);
+        });
+        qts_handles.push(handle);
+    }
+
+    for handle in qts_handles {
+        handle.join().unwrap();
+    }
+
+    let qts_end_time = std::time::Instant::now();
+    let qts_duration = qts_end_time.duration_since(qts_start_time);
+
+    // AE-QTS
+    let mut aeqts_handles = vec![];
+    let aeqts_start_time = std::time::Instant::now();
+    for i in 0..config.test.count {
+        let items = Arc::clone(&items);
+        let handle = thread::spawn(move || {
+            let items = items.lock().unwrap();
             aeqts(
                 &items,
                 capacity,
@@ -44,12 +64,18 @@ fn main() {
                 config.algorithm.n_neighbors,
                 i,
             );
-            println!("thread[{}] done", i);
+            println!("AEQTS thread[{}] done", i);
         });
-        handles.push(handle);
+        aeqts_handles.push(handle);
     }
 
-    for handle in handles {
+    for handle in aeqts_handles {
         handle.join().unwrap();
     }
+
+    let aeqts_end_time = std::time::Instant::now();
+    let aeqts_duration = aeqts_end_time.duration_since(aeqts_start_time);
+
+    println!("QTS duration: {:?}", qts_duration);
+    println!("AEQTS duration: {:?}", aeqts_duration);
 }

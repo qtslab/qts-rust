@@ -1,10 +1,10 @@
 [problem]
-size = 20
+size = 2000
 case = 1
 
 [algorithm]
-max_gen = 100
+max_gen = 1000
 n_neighbors = 10
 
 [test]
-count = 1
+count = 1000
