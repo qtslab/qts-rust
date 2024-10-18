@@ -2,38 +2,38 @@ use qts_rust::aeqts::aeqts;
 use qts_rust::case::{case_1, case_2, case_3};
 use qts_rust::config::Config;
 use qts_rust::qts::qts;
-use qts_rust::types::Problem;
 use std::sync::{Arc, Mutex};
 use std::thread;
 
 fn main() {
-    let config = Config::get().unwrap();
+    let mut config = Config::get().unwrap();
 
-    let problem = Problem::default();
     let items = Arc::new(Mutex::new(Vec::new()));
-    let capacity = {
-        let mut items = items.lock().unwrap();
-        if config.problem.case == 1 {
-            case_1(&mut items, problem) as f64
-        } else if config.problem.case == 2 {
-            case_2(&mut items, problem) as f64
-        } else if config.problem.case == 3 {
-            case_3(&mut items, problem) as f64
-        } else {
-            panic!("Invalid case");
-        }
-    };
+    let mut items_lock = items.lock().unwrap();
+    if config.problem.case == 1 {
+        case_1(&mut items_lock, config.problem.clone());
+    } else if config.problem.case == 2 {
+        case_2(&mut items_lock, config.problem.clone());
+    } else if config.problem.case == 3 {
+        case_3(&mut items_lock, config.problem.clone());
+    } else {
+        panic!("Invalid case");
+    }
+
+    config.problem.set_capacity(&mut items_lock);
+    drop(items_lock);
 
     let mut qts_handles = vec![];
 
     let qts_start_time = std::time::Instant::now();
     for i in 0..config.test.count {
         let items = Arc::clone(&items);
+        let config = config.clone();
         let handle = thread::spawn(move || {
             let items = items.lock().unwrap();
             qts(
                 &items,
-                capacity,
+                config.problem.capacity,
                 config.algorithm.max_gen,
                 config.algorithm.n_neighbors,
                 i,
@@ -55,11 +55,12 @@ fn main() {
     let aeqts_start_time = std::time::Instant::now();
     for i in 0..config.test.count {
         let items = Arc::clone(&items);
+        let config = config.clone();
         let handle = thread::spawn(move || {
             let items = items.lock().unwrap();
             aeqts(
                 &items,
-                capacity,
+                config.problem.capacity,
                 config.algorithm.max_gen,
                 config.algorithm.n_neighbors,
                 i,
