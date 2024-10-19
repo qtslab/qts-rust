@@ -15,6 +15,8 @@ pub struct Iteration {
 pub struct Record {
     pub file: String,
     pub iterations: Vec<Iteration>,
+    pub best_solution: Solution,
+    pub best_value: f64,
 }
 
 impl Record {
@@ -22,6 +24,8 @@ impl Record {
         Record {
             file,
             iterations: Vec::new(),
+            best_solution: Vec::new(),
+            best_value: 0.0,
         }
     }
 
@@ -59,6 +63,23 @@ impl Record {
             }
             writeln!(writer)?;
         }
+        writer.flush()?;
+        Ok(())
+    }
+
+    pub fn add_global_best(&mut self, value: f64, best_solution: Solution) {
+        self.best_value = value;
+        self.best_solution = best_solution;
+    }
+
+    pub fn write_file_global_best(&self) -> std::io::Result<()> {
+        let file = File::create(&self.file)?;
+        let mut writer = std::io::BufWriter::new(file);
+        writeln!(writer, "{}", self.best_value)?;
+        for i in 0..self.best_solution.len() {
+            write!(writer, "{} ", self.best_solution[i])?;
+        }
+        writeln!(writer)?;
         writer.flush()?;
         Ok(())
     }

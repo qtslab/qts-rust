@@ -77,6 +77,27 @@ fn main() {
     let aeqts_end_time = std::time::Instant::now();
     let aeqts_duration = aeqts_end_time.duration_since(aeqts_start_time);
 
+    let mut dp_handles = vec![];
+    let dp_start_time = std::time::Instant::now();
+    for i in 0..config.test.count {
+        let items = Arc::clone(&items);
+        let config = config.clone();
+        let handle = thread::spawn(move || {
+            let items = items.lock().unwrap();
+            qts_rust::dp::dp(&items, config.problem.capacity, i);
+            println!("DP thread[{}] done", i);
+        });
+        dp_handles.push(handle);
+    }
+
+    for handle in dp_handles {
+        handle.join().unwrap();
+    }
+
+    let dp_end_time = std::time::Instant::now();
+    let dp_duration = dp_end_time.duration_since(dp_start_time);
+
     println!("QTS duration: {:?}", qts_duration);
     println!("AEQTS duration: {:?}", aeqts_duration);
+    println!("DP duration: {:?}", dp_duration);
 }
