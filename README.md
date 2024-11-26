@@ -17,3 +17,5 @@ the configuration file is located in `config/config.toml`
 ```sh
 cargo run --release
 ```
+
+![image](image/qts-aeqts.png)
